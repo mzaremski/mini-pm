@@ -129,3 +129,33 @@ app.post('/api/addproject', (req, res) => {
         }
     })
 });
+
+app.post('/api/addTask', (req, res) => {
+    let sql ='insert into tasks values(' + (req.body.idTask ? req.body.idTask : null) + ',"' + req.body.taskContent +'", 1,' + req.body.workedTime + ',' + req.body.estimatedTime + ',' + req.body.parentId + ')';
+    db.query(sql, function(error, rows, fields){
+        if(!!error){
+            console.log("Error in the query");
+            console.log(error.sqlMessage);
+            res.send({isError: true, message: error.sqlMessage});
+        }else{
+            //res.json(rows)
+            console.log("Successful query")
+            res.send({isError: false, rows})
+        }
+    })
+});
+
+app.post('/api/removetask', (req, res) => {
+    console.log(req.body.idTaskToRemove)
+    let sql ='DELETE FROM tasks WHERE idTask=' + req.body.idTaskToRemove;
+    db.query(sql, function(error, rows, fields){
+        if(!!error){
+            console.log("Error in the query");
+            res.send({isError: true, message: error.sqlMessage});
+        }else{
+            //res.json(rows)
+            console.log("Successful query")
+            res.send({isError: false, rows})
+        }
+    })
+});

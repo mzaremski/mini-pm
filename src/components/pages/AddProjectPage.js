@@ -81,7 +81,7 @@ class AddProjectPage extends React.Component {
                         label="Project description">
                     </textarea>
 
-                    <Button waves='light' className="red lighten-2" type="submit">button</Button>
+                    <Button large waves='light' className="red lighten-2" type="submit" icon="send"> Add Project</Button>
 
                     { this.state.isError ?  <div className="card-panel red">Error</div> : ""}
                 </form>
@@ -96,14 +96,13 @@ class AddProjectPage extends React.Component {
              method: 'post',
              url: 'http://localhost:3000/api/addproject',
              data: this.state
-        }).then(function(response){
+        }).then(response => {
             if(response.data.isError){
                 this.setState({...this.state, isError: response.data.isError});
-                console.log(this.state)
             }else{
                 this.state = {isError: false}
             }
-        }.bind(this));
+        });
     }
 }
 

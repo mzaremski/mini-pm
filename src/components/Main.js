@@ -12,8 +12,8 @@ class MainApp extends React.Component {
         <Router>
             <div>
                 <Navbar brand='MiniPM' right>
-                	<NavItem href='/'><Icon>Home</Icon></NavItem>
-                	<NavItem href='/login'><Icon>Login</Icon></NavItem>
+                	<NavItem href='/'><Icon>home</Icon></NavItem>
+                	<NavItem href='/login'>Login</NavItem>
                 </Navbar>
 
                 <Route path="/login" component={Login} />

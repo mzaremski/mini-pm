@@ -19,7 +19,7 @@ class Home extends React.Component {
                     </Col>
                     <Col s={1}>
                         <Link to="/addproject">
-                            <Button floating large style={{top:"10px"}} className='red lighten-2' waves='light' icon='+' />
+                            <Button floating large style={{top:"10px"}} className='red lighten-2' waves='light' icon='add' />
                         </Link>
 
                     </Col>
@@ -35,12 +35,8 @@ class Home extends React.Component {
     }
 
     getProjectComponents(state){
-        var projectComponents = []
-
-        state.projects.forEach(function(item){
-            projectComponents.push(<ProjectCard projectData={item}/>)
-        });
-
+        const projectComponents = []
+        state.projects.forEach(item => projectComponents.push(<ProjectCard projectData={item}/>));
         return projectComponents
     }
 
@@ -48,25 +44,12 @@ class Home extends React.Component {
          //axios.get(`data/dataProjects.json`).then(
          axios.get(`http://localhost:3000/api/projects`).then(
              response => {
-                 setTimeout.bind(window)(function(){
                      console.log("ZAPYTANIE WYKONANO POMYSLNIE")
                      this.state.loading = false;
                      this.setState({projects: response.data})
-                 }.bind(this), 400)
              }
-          ).catch(function (error) {
-             console.log(error);
-          });
+         ).catch(error => console.log(error));
     }
 }
 
 export default Home;
-
-
-// GetProjectCard(props){
-//     return <ProjectCard projectData={this.state[0]}></ProjectCard>
-// }
-
-// Object.keys(this.state).map(function(keyName, keyIndex) {
-//     <ProjectCard projectData={this.state[keyName]}></ProjectCard>
-// })
