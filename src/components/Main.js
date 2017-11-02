@@ -3,7 +3,8 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Project from './pages/Project';
 import AddProjectPage from './pages/AddProjectPage';
-import {Navbar, NavItem, Icon} from 'react-materialize'
+import Timer from './Timer';
+import {Navbar, NavItem, Icon, Row} from 'react-materialize'
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom';
 
 class MainApp extends React.Component {
@@ -12,9 +13,12 @@ class MainApp extends React.Component {
         <Router>
             <div>
                 <Navbar brand='MiniPM' right>
-                	<NavItem href='/'><Icon>home</Icon></NavItem>
+                    <NavItem href='/'><Icon>home</Icon></NavItem>
                 	<NavItem href='/login'>Login</NavItem>
+
                 </Navbar>
+
+                <Row><Timer></Timer></Row>
 
                 <Route path="/login" component={Login} />
                 <Route path="/addproject" component={AddProjectPage} />
