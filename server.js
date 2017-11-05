@@ -145,6 +145,7 @@ app.post('/api/addTask', (req, res) => {
     })
 });
 
+
 app.post('/api/removetask', (req, res) => {
     console.log(req.body.idTaskToRemove)
     let sql ='DELETE FROM tasks WHERE idTask=' + req.body.idTaskToRemove;
@@ -156,6 +157,28 @@ app.post('/api/removetask', (req, res) => {
             //res.json(rows)
             console.log("Successful query")
             res.send({isError: false, rows})
+        }
+    })
+});
+
+
+app.post('/api/setTimeTask/:id', (req, res) => {
+    let getWholeTimeSql = `SELECT workedTime from tasks WHERE idTask=${req.params.id}`;
+
+    db.query(getWholeTimeSql, function(error, rows, fields){
+        if(!!error){
+            console.log("Error in the 1 query");
+        }else{
+            let updateTaskSql =`UPDATE tasks SET workedTime=${rows[0].workedTime + req.body.wholeTime} WHERE idTask=${req.params.id}`;
+            db.query(updateTaskSql, function(error, rows, fields){
+                if(!!error){
+                    console.log("Error in the 2 query");
+                    res.send({isError: true, message: error.sqlMessage});
+                }else{
+                    console.log("Successful 2 query")
+                    res.send({isError: false});
+                }
+            })
         }
     })
 });
