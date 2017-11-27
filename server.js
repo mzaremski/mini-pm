@@ -140,9 +140,9 @@ app.post('/api/addproject', (req, res) => {
 
 app.post('/api/addTask', (req, res) => {
     let sql =`insert into tasks values(
-            "${req.body.idTask ? req.body.idTask : null},
+            "${req.body.idTask ? req.body.idTask : null}",
             "${req.body.taskContent}",
-             ${1},
+             1,
              ${req.body.workedTime},
              ${req.body.estimatedTime},
              ${req.body.parentId}
