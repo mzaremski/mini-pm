@@ -51,7 +51,6 @@ class TaskCard extends React.Component {
 
   deleteTask(e){
       e.preventDefault();
-
       axios({
            method: 'post',
            url: 'http://localhost:3000/api/removetask',

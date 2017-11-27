@@ -117,7 +117,15 @@ app.get('/api/tasks/:parentId', (req, res) => {
 });
 
 app.post('/api/addproject', (req, res) => {
-    let sql ='insert into projects values(NULL,"' + req.body.projectName +'","' + req.body.projectDescription + '",' + req.body.responsiblePerson + ',' + req.body.workedTime + ',' + req.body.estimatedTime + ',' + req.body.percentDone + ')';
+    let sql =`insert into projects values(
+                NULL,
+                "${req.body.projectName}",
+                "${req.body.projectDescription}",
+                 ${req.body.responsiblePerson},
+                 ${req.body.workedTime},
+                 ${req.body.estimatedTime},
+                 ${req.body.percentDone}
+            )`;
     db.query(sql, function(error, rows, fields){
         if(!!error){
             console.log("Error in the query");
@@ -131,7 +139,15 @@ app.post('/api/addproject', (req, res) => {
 });
 
 app.post('/api/addTask', (req, res) => {
-    let sql ='insert into tasks values(' + (req.body.idTask ? req.body.idTask : null) + ',"' + req.body.taskContent +'", 1,' + req.body.workedTime + ',' + req.body.estimatedTime + ',' + req.body.parentId + ')';
+    let sql =`insert into tasks values(
+            "${req.body.idTask ? req.body.idTask : null},
+            "${req.body.taskContent}",
+             ${1},
+             ${req.body.workedTime},
+             ${req.body.estimatedTime},
+             ${req.body.parentId}
+        )`;
+
     db.query(sql, function(error, rows, fields){
         if(!!error){
             console.log("Error in the query");
@@ -147,8 +163,7 @@ app.post('/api/addTask', (req, res) => {
 
 
 app.post('/api/removetask', (req, res) => {
-    console.log(req.body.idTaskToRemove)
-    let sql ='DELETE FROM tasks WHERE idTask=' + req.body.idTaskToRemove;
+    let sql =`DELETE FROM tasks WHERE idTask=${req.body.idTaskToRemove}`
     db.query(sql, function(error, rows, fields){
         if(!!error){
             console.log("Error in the query");
