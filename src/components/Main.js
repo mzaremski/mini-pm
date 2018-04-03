@@ -12,13 +12,11 @@ class MainApp extends React.Component {
       return (
         <Router>
             <div>
-                <Navbar brand='MiniPM' right>
-                    <NavItem href='/'><Icon>home</Icon></NavItem>
-                	<NavItem href='/login'>Login</NavItem>
+                <Navbar brand='MiniPM' right></Navbar>
 
-                </Navbar>
-
-                <Row><Timer></Timer></Row>
+                <Row>
+                    <Timer></Timer>
+                </Row>
 
                 <Route path="/login" component={Login} />
                 <Route path="/addproject" component={AddProjectPage} />

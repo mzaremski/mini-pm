@@ -121,7 +121,7 @@ app.post('/api/addproject', (req, res) => {
                 NULL,
                 "${req.body.projectName}",
                 "${req.body.projectDescription}",
-                 ${req.body.responsiblePerson},
+                 1,
                  ${req.body.workedTime},
                  ${req.body.estimatedTime},
                  ${req.body.percentDone}
@@ -129,6 +129,7 @@ app.post('/api/addproject', (req, res) => {
     db.query(sql, function(error, rows, fields){
         if(!!error){
             console.log("Error in the query");
+            console.log(error.sqlMessage)
             res.send({isError: true, message: error.sqlMessage});
         }else{
             //res.json(rows)

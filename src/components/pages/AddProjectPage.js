@@ -9,18 +9,23 @@ class AddProjectPage extends React.Component {
          super(props);
 
         this.state = {
-            projectName: "",
-            workedTime: "",
-            estimatedTime: "",
-            percentDone: "",
-            responsiblePerson: "1",
-            projectName: ""
+            // formData:{
+            //     projectName: "",
+            //     workedTime: "",
+            //     estimatedTime: "",
+            //     percentDone: "",
+            //     responsiblePerson: "1",
+            //     projectName: ""
+            // }
         }
     }
 
     changeValue(e){
         this.setState({
-            [e.target.name]: e.target.value
+            formData:{
+                ...this.state.formData,
+                [e.target.name]: e.target.value
+            }
         })
     }
 
@@ -63,6 +68,7 @@ class AddProjectPage extends React.Component {
                         <Input
                             s={3}
                             value={this.state.responsiblePerson}
+                            value="1"
                             name="responsiblePerson"
                             onChange={e => this.changeValue(e)}
                             label="Responsible person"
@@ -83,7 +89,15 @@ class AddProjectPage extends React.Component {
 
                     <Button large waves='light' className="red lighten-2" type="submit" icon="send"> Add Project</Button>
 
-                    { this.state.isError ?  <div className="card-panel red">Error</div> : ""}
+                    { this.state.isError ?
+                        <div className="card-panel red">{this.state.message}</div>
+                        :
+                        (this.state.message ?
+                            <div className="card-panel green">{this.state.message}</div>
+                            :
+                            ""
+                        )
+                    }
                 </form>
             </div>
         );
@@ -91,16 +105,18 @@ class AddProjectPage extends React.Component {
 
     addProject(e){
         e.preventDefault();
+        var form = e.target
 
+        console.log(this.state.formData)
         axios({
              method: 'post',
              url: 'http://localhost:3000/api/addproject',
-             data: this.state
+             data: this.state.formData
         }).then(response => {
             if(response.data.isError){
-                this.setState({...this.state, isError: response.data.isError});
+                this.setState({...this.state, isError: response.data.isError, message: "Błąd w wysyłaniu żądania", formData: {}});
             }else{
-                this.state = {isError: false}
+                this.setState({isError: false, message:"Akcja zakończona pomyślnie!", formData: {}});
             }
         });
     }
